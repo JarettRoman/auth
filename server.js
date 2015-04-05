@@ -7,6 +7,8 @@ var port      = process.env.PORT || 8080;
 var mongoose  = require('mongoose');
 var passport  = require('passport');
 var flash     = require ('connect-flash');
+var server    = require('http').createServer(app);
+var io        = require('socket.io')(server);
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -38,8 +40,11 @@ app.use(passport.session());//persistent login sessions
 app.use(flash());//use connect-flash for flash messages stored in session
 
 //ROUTES=========
-require('./app/routes.js')(app, passport); //load routes and pass into app and fully configured passport
+require('./app/routes.js')(app, passport, io); //load routes and pass into app and fully configured passport
 
 //LAUNCH=========
-app.listen(port);
-console.log('Code is being slung to port ' + port);
+//app.listen(port);
+server.listen(port, function(){
+  console.log('Server listening at port %d', port);
+})
+//console.log('Code is being slung to port ' + port);

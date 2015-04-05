@@ -1,4 +1,4 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, io) {
 
   //HOME PAGE ==========
   /*app.get('/', function(req, res) {
@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
 
   // process login form
   app.post('/', passport.authenticate('local-login', {
-    successRedirect : '/profile',
+    successRedirect : '/chat',
     failureRedirect : '/',
     failureFlash : true
   }));
@@ -34,7 +34,7 @@ module.exports = function(app, passport) {
   //process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
     //console.log('We are in the app.post signup function');
-    successRedirect : '/profile', // redirect to the secure profile section
+    successRedirect : '/chat', // redirect to the secure profile section
     failureRedirect : '/signup',  // redirect back to the signup page if there's an error
     failureFlash : true // allow flash messages
   }));
@@ -49,7 +49,23 @@ module.exports = function(app, passport) {
     req.logout();
     res.redirect('/');
   });
+
+  //socket.io route handler
+  app.get('/chat', isLoggedIn, function(req, res){
+    res.render('chat.ejs');
+    console.log('within /chat');
+  });
+
+  io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+      io.emit('chat message', msg);
+      //console.log('message: ' + msg);
+    });
+    //console.log('a user connected');
+  });
 };
+
+
 
 //route middleware to make sure a user is logged in
 //could possibly use for getting people to the chat app
