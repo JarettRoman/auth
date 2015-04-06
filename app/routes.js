@@ -34,7 +34,7 @@ module.exports = function(app, passport, io) {
   //process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
     //console.log('We are in the app.post signup function');
-    successRedirect : '/chat', // redirect to the secure profile section
+    successRedirect : '/chat', // send to chatroom
     failureRedirect : '/signup',  // redirect back to the signup page if there's an error
     failureFlash : true // allow flash messages
   }));
