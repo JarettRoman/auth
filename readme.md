@@ -8,4 +8,5 @@ TODO:
 <li>Reply feature</li>
 <li>DONE! ~~Easier access to profile page~~</li>
 <li>Currently borrowing a lame view from a site that helped with figuring out socket. Will make another that uses bootstrap.</li>
+<li>Persistent chat (I have a good idea on how to make this work, but it's getting late...)</li>
 </ul>
