@@ -1,5 +1,6 @@
-module.exports = function(app, passport, io) {
+module.exports = function(app, passport) {
 
+  //var User = require('../app/models/user');
   //HOME PAGE ==========
   /*app.get('/', function(req, res) {
     res.render('index.ejs'); //Load the index.ejs file at the root
@@ -56,13 +57,13 @@ module.exports = function(app, passport, io) {
     console.log('within /chat');
   });
 
-  io.on('connection', function(socket){
+/*  io.on('connection', function(socket){
     socket.on('chat message', function(msg){
       io.emit('chat message', msg);
       //console.log('message: ' + msg);
     });
     //console.log('a user connected');
-  });
+  });*/
 };
 
 

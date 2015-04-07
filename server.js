@@ -40,8 +40,19 @@ app.use(passport.session());//persistent login sessions
 app.use(flash());//use connect-flash for flash messages stored in session
 
 //ROUTES=========
-require('./app/routes.js')(app, passport, io); //load routes and pass into app, io, and fully configured passport
+require('./app/routes.js')(app, passport); //load routes and pass into app, io, and fully configured passport
 
+
+//SOCKET.IO======
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+    //console.log('message: ' + msg);
+  });
+  //console.log('a user connected');
+});
+  
 //LAUNCH=========
 //app.listen(port);
 server.listen(port, function(){
