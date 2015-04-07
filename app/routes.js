@@ -51,19 +51,10 @@ module.exports = function(app, passport) {
     res.redirect('/');
   });
 
-  //socket.io route handler
   app.get('/chat', isLoggedIn, function(req, res){
     res.render('chat.ejs');
     console.log('within /chat');
   });
-
-/*  io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-      io.emit('chat message', msg);
-      //console.log('message: ' + msg);
-    });
-    //console.log('a user connected');
-  });*/
 };
 
 

@@ -4,7 +4,8 @@ To get it working, just do a checkout and run 'node server'. Make an account and
 
 TODO:
 <ul>
-<li>Get usernames/email address to show up in chat.</li>
+<li>DONE! ~~Get usernames/email address to show up in chat.~~</li>
 <li>Reply feature</li>
-<li>Easier access to profile page</li>
+<li>DONE! ~~Easier access to profile page~~</li>
+<li>Currently borrowing a lame view from a site that helped with figuring out socket. Will make another that uses bootstrap.</li>
 </ul>

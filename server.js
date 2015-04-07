@@ -42,17 +42,45 @@ app.use(flash());//use connect-flash for flash messages stored in session
 //ROUTES=========
 require('./app/routes.js')(app, passport); //load routes and pass into app, io, and fully configured passport
 
-
 //SOCKET.IO======
+var usernames = {};
 
 io.on('connection', function(socket){
+  //Socket.io functions 'listen' to calls from the client. For the above, io.on() is listening for the 'connection'
+  //flag and then executes the below functions, which are also listening for their own calls.
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
     //console.log('message: ' + msg);
   });
-  //console.log('a user connected');
+
+  socket.on('sendchat', function(data) {
+    //tell client to execute 'updatechat' with 2 parameters
+    io.emit('updatechat', socket.username, data);
+  });
+
+  socket.on('adduser', function(username){
+    //store username in the socket session for this client
+    socket.username = username;
+    //add the client's username to the global list
+    usernames[username] = username;
+    //tell the user they've connected.
+    socket.emit('updatechat', 'SERVER', 'you have connected');
+    //tell everyone (all clients) that a person has connected
+    socket.broadcast.emit('updatechat', 'SERVER', username + ' has connected');
+    //update the list of users in chat, client-side
+    io.emit('updateusers', usernames);
+  });
+
+  socket.on('disconnect', function(){
+    //remove username from the usernames list
+    delete usernames[socket.username];
+    //update client-side list of users to reflect delete
+    io.emit('updateusers', usernames);
+    //announce this user has disconnected
+    socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has left');
+  });
 });
-  
+
 //LAUNCH=========
 //app.listen(port);
 server.listen(port, function(){
