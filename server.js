@@ -9,6 +9,7 @@ var passport  = require('passport');
 var flash     = require ('connect-flash');
 var server    = require('http').createServer(app);
 var io        = require('socket.io')(server);
+var fs        = require('fs');
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -56,6 +57,13 @@ io.on('connection', function(socket){
   socket.on('sendchat', function(data) {
     //tell client to execute 'updatechat' with 2 parameters
     io.emit('updatechat', socket.username, data);
+    var logString = '<b>' + socket.username + ':</b> ' + data + "\n";
+    fs.appendFile("log.txt", logString, function(err){
+      if(err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+    });
   });
 
   socket.on('adduser', function(username){
