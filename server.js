@@ -49,6 +49,13 @@ var usernames = {};
 io.on('connection', function(socket){
   //Socket.io functions 'listen' to calls from the client. For the above, io.on() is listening for the 'connection'
   //flag and then executes the below functions, which are also listening for their own calls.
+  fs.readFile("log.txt", "utf-8", function(err, data){
+    if(err) {
+      return console.log(err);
+    }
+    console.log(data);//data doesn't seem to be a string....
+    socket.emit('loadlog', data);
+  });
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
     //console.log('message: ' + msg);
@@ -57,7 +64,8 @@ io.on('connection', function(socket){
   socket.on('sendchat', function(data) {
     //tell client to execute 'updatechat' with 2 parameters
     io.emit('updatechat', socket.username, data);
-    var logString = '<b>' + socket.username + ':</b> ' + data + "\n";
+    //logs currently sent chat message
+    var logString = '<b>' + socket.username + ':</b> ' + data + "<br>\n";
     fs.appendFile("log.txt", logString, function(err){
       if(err) {
         return console.log(err);
@@ -67,6 +75,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('adduser', function(username){
+    if(username === null || username.length <= 0) {
+      username = 'Anonymous';
+    }
     //store username in the socket session for this client
     socket.username = username;
     //add the client's username to the global list

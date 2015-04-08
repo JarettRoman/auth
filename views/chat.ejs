@@ -21,6 +21,11 @@
     $('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
   });
 
+  //loads the log into a new user's chat body.
+  socket.on('loadlog', function(log){
+    $('#conversation').append(log);
+  });
+
   //whenever the server emits 'updateusers', this updates the username list
   socket.on('updateusers', function(data) {
     $('#users').empty();
