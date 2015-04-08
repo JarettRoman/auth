@@ -39,6 +39,9 @@
     // when the client clicks SEND
     $('#datasend').click( function() {
       var message = $('#data').val();
+      if(message.indexOf('@@') == 0 && message.length > 2){
+        message = '---><i>' + message.slice(2) + '</i>';
+      }
       if(message.length > 0) {
         $('#data').val('');
         // tell server to execute 'sendchat' and send along one parameter

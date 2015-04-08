@@ -1,0 +1,13 @@
+<b>Anonymous:</b> sup<br>
+<b>Anonymous:</b> haps<br>
+<b>someone:</b> @@anon you hush<br>
+<b>haps:</b> @@quote<br>
+<b>someone:</b> @@yo<br>
+<b>yo:</b> @@quote test<br>
+<b>someone:</b> @@yo<br>
+<b>afro:</b> someone<br>
+<b>someone:</b> ---><i>@@sup</i><br>
+<b>someone:</b> ---><i>@@sup</i><br>
+<b>someone:</b> damn<br>
+<b>someone:</b> ---><i>test</i><br>
+<b>someone:</b> ---><i> quoting 1243</i><br>
